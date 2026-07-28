@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>数字营销需求收集</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  background: #f6f4f0;
+  font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"PingFang SC","Microsoft YaHei",sans-serif;
+  color: #1c1917;padding:0;min-height:100vh
+}
+::selection{background:#d9770666;color:#fff}
+
+/* ── Header ── */
+.header-wrap{
+  background: linear-gradient(135deg,#1c1917 0%,#292524 100%);
+  color:#fff;padding:0;position:sticky;top:0;z-index:50;
+  box-shadow:0 1px 3px rgba(0,0,0,.15)
+}
+.header-inner{
+  max-width:840px;margin:0 auto;padding:20px 24px;
+  display:flex;align-items:center;justify-content:space-between
+}
+.header-left{display:flex;align-items:center;gap:14px}
+.header-logo{flex-shrink:0;width:40px;height:40px}
+.header-text h1{
+  font-size:18px;font-weight:600;letter-spacing:-.3px
+}
+
+.header-text p{font-size:12px;color:#a8a29e;margin-top:2px}
+.header-actions{display:flex;gap:8px}
+.btn-icon{
+  width:36px;height:36px;border-radius:8px;
+  background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.1);
+  color:#d6d3d1;font-size:18px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .2s,color .2s;line-height:1
+}
+.btn-icon:hover{background:rgba(255,255,255,.15);color:#fff}
+
+/* ── Progress ── */
+.progress-wrap{
+  max-width:840px;margin:0 auto;padding:16px 24px 0
+}
+.progress-segments{
+  display:flex;gap:4px;width:100%
+}
+.progress-seg{
+  flex:1;height:4px;border-radius:2px;
+  background:#e7e5e4;overflow:hidden;transition:background .5s
+}
+.progress-seg.filled{background:#d97706}
+.progress-seg.filled.anim{animation:segFill .5s ease-out forwards}
+@keyframes segFill{0%{transform:scaleX(0);transform-origin:left}100%{transform:scaleX(1)}}
+.progress-info{
+  display:flex;justify-content:space-between;align-items:center;
+  padding:8px 2px 0;font-size:12px;color:#78716c
+}
+.progress-info strong{color:#1c1917;font-weight:600}
+
+/* ── Container ── */
+.container{max-width:840px;margin:0 auto;padding:16px 24px 48px}
+
+/* ── Section Cards ── */
+.section{
+  background:#fff;border-radius:14px;
+  border:1px solid #e7e5e4;
+  padding:28px 32px;margin-bottom:16px;
+  transition:box-shadow .25s,border-color .25s
+}
+.section:hover{border-color:#d6d3d1;box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.section-header{
+  display:flex;align-items:center;gap:14px;
+  margin-bottom:24px;padding-bottom:16px;
+  border-bottom:1px solid #f5f5f4
+}
+.section-number{
+  display:flex;align-items:center;justify-content:center;
+  width:32px;height:32px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#fff;font-size:13px;font-weight:700;border-radius:8px;
+  flex-shrink:0
+}
+.section-title{font-size:15px;font-weight:600;color:#1c1917}
+.section-desc{font-size:12px;color:#a8a29e;margin-left:auto}
+
+/* ── Form Grid ── */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.form-group{display:flex;flex-direction:column}
+.form-group.full{grid-column:1/-1}
+@media(max-width:640px){.form-grid{grid-template-columns:1fr}}
+
+.form-group label{
+  display:flex;align-items:center;gap:4px;
+  font-size:13px;font-weight:600;color:#1c1917;margin-bottom:6px
+}
+.form-group label .required{color:#dc2626;margin-left:2px}
+.form-group label .hint{
+  font-weight:400;font-size:11px;color:#a8a29e;margin-left:auto
+}
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group select,
+.form-group textarea{
+  width:100%;padding:10px 13px;
+  border:1.5px solid #d6d3d1;border-radius:8px;
+  font-size:14px;font-family:inherit;color:#1c1917;
+  background:#fff;
+  transition:border-color .2s,box-shadow .2s;outline:none
+}
+.form-group input:focus,.form-group select:focus,.form-group textarea:focus{
+  border-color:#d97706;
+  box-shadow:0 0 0 3px rgba(217,119,6,.1)
+}
+.form-group input:hover,.form-group select:hover,.form-group textarea:hover{
+  border-color:#a8a29e
+}
+.form-group textarea{
+  resize:vertical;min-height:70px;line-height:1.6
+}
+.form-group textarea.large{min-height:100px}
+
+/* ── Checkbox Chips ── */
+.check-group{display:flex;flex-wrap:wrap;gap:8px;padding-top:2px}
+.check-group label{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:13px;font-weight:400;color:#44403c;
+  cursor:pointer;padding:7px 14px;
+  border:1.5px solid #e7e5e4;border-radius:8px;
+  background:#fafaf9;
+  transition:all .2s;user-select:none;margin-bottom:0
+}
+.check-group label:hover{
+  border-color:#d97706;background:#fffbeb
+}
+.check-group label:has(input:checked){
+  border-color:#d97706;
+  background:linear-gradient(135deg,#fffbeb,#fef3c7);
+  box-shadow:0 0 0 1px #d97706
+}
+.check-group input[type="checkbox"]{display:none}
+.check-group label:has(input:checked) .ck-box{
+  background:#d97706;border-color:#d97706
+}
+.check-group label:has(input:checked) .ck-box::after{opacity:1}
+.ck-box{
+  width:16px;height:16px;border-radius:4px;
+  border:1.5px solid #d6d3d1;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;transition:all .2s;position:relative
+}
+.ck-box::after{
+  content:"";position:absolute;width:10px;height:10px;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='white' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='20 6 9 17 4 12'%3E%3C/polyline%3E%3C/svg%3E") center/contain no-repeat;
+  opacity:0;transition:opacity .2s
+}
+.check-group label span{margin-left:2px}
+
+/* ── Submit ── */
+.submit-card{
+  background:#fff;border-radius:14px;
+  border:1px solid #e7e5e4;padding:20px 32px;
+  display:flex;align-items:center;justify-content:space-between;
+  transition:box-shadow .25s
+}
+.submit-card:hover{box-shadow:0 2px 12px rgba(0,0,0,.04)}
+.submit-card .info{font-size:13px;color:#78716c}
+.submit-card .info strong{color:#1c1917;font-weight:600}
+.btn-submit{
+  padding:12px 36px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#fff;border:none;border-radius:9px;font-size:15px;
+  font-weight:600;cursor:pointer;font-family:inherit;
+  transition:filter .2s,transform .1s,box-shadow .2s;
+  display:inline-flex;align-items:center;gap:6px
+}
+.btn-submit:hover{
+  filter:brightness(1.08);
+  box-shadow:0 4px 14px rgba(217,119,6,.3)
+}
+.btn-submit:active{transform:scale(.97)}
+.btn-submit:disabled{
+  background:#d6d3d1;color:#a8a29e;
+  cursor:not-allowed;transform:none;filter:none;box-shadow:none
+}
+
+/* ── Status ── */
+.footer-bar{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-top:16px
+}
+.status-badge{
+  display:inline-flex;align-items:center;gap:5px;
+  font-size:12px;padding:5px 12px;border-radius:20px;font-weight:500
+}
+.status-badge.idle{background:#f5f5f4;color:#78716c}
+.status-badge.connected{background:#ecfdf5;color:#065f46}
+.status-badge.error{background:#fef2f2;color:#991b1b}
+.footer-note{font-size:12px;color:#a8a29e}
+
+/* ── Toast ── */
+.toast{
+  position:fixed;top:24px;left:50%;
+  transform:translateX(-50%) translateY(-100px);
+  padding:14px 24px;border-radius:10px;
+  font-size:14px;font-weight:500;
+  box-shadow:0 8px 32px rgba(0,0,0,.12);
+  z-index:1000;transition:transform .4s cubic-bezier(.34,1.56,.64,1);
+  max-width:480px;text-align:center;
+  backdrop-filter:blur(8px)
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{background:#ecfdf5;color:#065f46}
+.toast.error{background:#fef2f2;color:#991b1b}
+
+/* ── Modal ── */
+.modal-overlay{
+  display:none;position:fixed;inset:0;
+  background:rgba(28,25,23,.5);
+  backdrop-filter:blur(4px);
+  z-index:900;align-items:center;justify-content:center;padding:20px
+}
+.modal-overlay.show{display:flex}
+.modal{
+  background:#fff;border-radius:16px;padding:28px;
+  width:100%;max-width:480px;max-height:85vh;overflow-y:auto;
+  box-shadow:0 24px 64px rgba(0,0,0,.2);
+  animation:modalIn .3s ease-out
+}
+@keyframes modalIn{0%{opacity:0;transform:scale(.95) translateY(10px)}100%{opacity:1;transform:scale(1) translateY(0)}}
+.modal h2{
+  font-size:16px;font-weight:600;margin-bottom:20px;
+  display:flex;align-items:center;justify-content:space-between
+}
+.modal .close-btn{
+  background:none;border:none;font-size:22px;
+  cursor:pointer;color:#a8a29e;padding:0 4px;line-height:1
+}
+.modal .close-btn:hover{color:#1c1917}
+.modal .form-group{margin-bottom:16px}
+.modal .form-group label{font-size:13px}
+.modal .form-group input,.modal .form-group select,.modal .form-group textarea{padding:9px 12px;font-size:13px}
+.modal .form-help{font-size:11px;color:#a8a29e;margin-top:4px}
+.btn-group{display:flex;gap:10px;margin-top:20px;justify-content:flex-end}
+.btn-primary{
+  padding:10px 28px;
+  background:linear-gradient(135deg,#f59e0b,#d97706);
+  color:#fff;border:none;border-radius:8px;font-size:14px;
+  font-weight:500;cursor:pointer;font-family:inherit;
+  transition:filter .2s
+}
+.btn-primary:hover{filter:brightness(1.08)}
+.btn-primary:disabled{background:#d6d3d1;cursor:not-allowed;filter:none}
+.btn-secondary{
+  padding:10px 24px;background:#f5f5f4;
+  color:#44403c;border:1px solid #d6d3d1;
+  border-radius:8px;font-size:14px;cursor:pointer;
+  transition:background .2s
+}
+.btn-secondary:hover{background:#e7e5e4}
+
+/* ── Loading ── */
+.loading-spinner{
+  display:inline-block;width:16px;height:16px;
+  border:2px solid rgba(255,255,255,.3);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin .6s linear infinite;vertical-align:middle;margin-right:6px
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── Mobile ── */
+@media(max-width:640px){
+  .header-inner{padding:16px 16px}
+  .container{padding:12px 12px 32px}
+  .section{padding:20px 18px}
+  .submit-card{padding:16px 18px;flex-direction:column;gap:12px;align-items:stretch}
+  .header-text h1{font-size:16px}
+  .header-text p{font-size:11px}
+  .header-logo{width:34px;height:34px}
+}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<div class="header-wrap">
+<div class="header-inner">
+<div class="header-left">
+<div class="header-logo">
+<svg viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="lg" x1="0" y1="0" x2="40" y2="40">
+      <stop offset="0%" stop-color="#f59e0b"/>
+      <stop offset="100%" stop-color="#b45309"/>
+    </linearGradient>
+  </defs>
+  <rect width="40" height="40" rx="10" fill="url(#lg)"/>
+  <!-- 外圈 -- 雷达/洞察 -->
+  <circle cx="20" cy="20" r="13" stroke="rgba(255,255,255,.25)" stroke-width="1.5"/>
+  <circle cx="20" cy="20" r="8" stroke="rgba(255,255,255,.35)" stroke-width="1.2"/>
+  <!-- 核心光点 -->
+  <circle cx="20" cy="20" r="3.5" fill="#fff"/>
+  <circle cx="20" cy="20" r="1.8" fill="#fcd34d"/>
+  <!-- 数据弧线 -->
+  <path d="M12 20 Q16 12 24 14 Q30 16 28 22" stroke="rgba(255,255,255,.6)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M15 25 Q18 20 24 22 Q28 24 26 27" stroke="rgba(255,255,255,.4)" stroke-width="1" stroke-linecap="round" fill="none"/>
+  <!-- 触点小点 -->
+  <circle cx="12" cy="20" r="1.5" fill="#fff" opacity=".7"/>
+  <circle cx="24" cy="14" r="1.5" fill="#fff" opacity=".7"/>
+  <circle cx="28" cy="22" r="1.5" fill="#fff" opacity=".7"/>
+  <circle cx="26" cy="27" r="1.2" fill="#fff" opacity=".5"/>
+</svg>
+</div>
+<div class="header-text">
+<h1>数字营销需求收集</h1>
+<p>深度洞察品牌 · 定制增长策略</p>
+</div>
+</div>
+<div class="header-actions">
+<button class="btn-icon" id="btnSettings" title="设置">&#x2699;</button>
+<button class="btn-icon" id="btnRefresh" title="刷新状态">&#x21bb;</button>
+</div>
+</div>
+</div>
+
+<!-- Progress -->
+<div class="progress-wrap">
+<div class="progress-segments" id="progressSegments"></div>
+<div class="progress-info">
+<span>已填写 <strong id="filledCount">0</strong> / 20 个字段</span>
+<span id="progressPercent" style="color:#d97706;font-weight:600">0%</span>
+</div>
+</div>
+
+<!-- Form -->
+<div class="container">
+<form id="mainForm" novalidate>
+
+<div class="section" data-section="1">
+<div class="section-header"><span class="section-number">一</span><span class="section-title">基本信息</span><span class="section-desc">了解你和你的品牌</span></div>
+<div class="form-grid">
+<div class="form-group">
+<label>客户/品牌名称 <span class="required">*</span></label>
+<input type="text" name="客户/品牌名称" required placeholder="你的品牌或公司名称" autocomplete="off">
+</div>
+<div class="form-group">
+<label>联系人 <span class="required">*</span></label>
+<input type="text" name="联系人" required placeholder="怎么称呼你" autocomplete="off">
+</div>
+<div class="form-group">
+<label>联系方式 <span class="required">*</span></label>
+<input type="text" name="联系方式" required placeholder="手机或微信" autocomplete="off">
+</div>
+</div>
+</div>
+
+<div class="section" data-section="2">
+<div class="section-header"><span class="section-number">二</span><span class="section-title">项目背景</span><span class="section-desc">了解你的业务和现状</span></div>
+<div class="form-grid">
+<div class="form-group">
+<label>所属行业 <span class="required">*</span></label>
+<select name="所属行业" required>
+<option value="">请选择</option>
+<option>餐饮美食</option><option>教育培训</option>
+<option>电商零售</option><option>生活服务</option>
+<option>科技互联网</option><option>房产家装</option>
+<option>医疗健康</option><option>金融保险</option>
+<option>其他</option>
+</select>
+</div>
+<div class="form-group full">
+<label>核心产品/服务 <span class="required">*</span> <span class="hint">2-3句话说清</span></label>
+<textarea name="核心产品/服务" required placeholder="卖什么、做什么？用2-3句话说清楚你的核心业务"></textarea>
+</div>
+<div class="form-group">
+<label>项目所处阶段 <span class="required">*</span></label>
+<select name="项目所处阶段" required>
+<option value="">请选择</option>
+<option>刚起步（0-6个月）</option>
+<option>成长期（6个月-2年）</option>
+<option>成熟期（2年以上）</option>
+</select>
+</div>
+<div class="form-group">
+<label>所在城市</label>
+<input type="text" name="所在城市" placeholder="影响本地推广策略" autocomplete="off">
+</div>
+</div>
+</div>
+
+<div class="section" data-section="3">
+<div class="section-header"><span class="section-number">三</span><span class="section-title">目标客群</span><span class="section-desc">谁是你的客户</span></div>
+<div class="form-grid">
+<div class="form-group full">
+<label>目标用户画像</label>
+<textarea name="目标用户画像" placeholder="年龄、性别、职业、收入水平、兴趣偏好，越细越好"></textarea>
+</div>
+<div class="form-group full">
+<label>用户核心痛点</label>
+<textarea name="用户核心痛点" placeholder="客户遇到了什么问题？你的产品帮他们解决什么？"></textarea>
+</div>
+<div class="form-group">
+<label>用户决策路径</label>
+<div class="check-group">
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="朋友推荐"><span>朋友推荐</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="小红书种草"><span>小红书种草</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="抖音刷到"><span>抖音刷到</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="搜索引擎搜索"><span>搜索引擎搜索</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="大众点评"><span>大众点评</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="线下门店"><span>线下门店</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="用户决策路径" value="其他"><span>其他</span></label>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section" data-section="4">
+<div class="section-header"><span class="section-number">四</span><span class="section-title">竞争情况</span><span class="section-desc">知己知彼</span></div>
+<div class="form-grid">
+<div class="form-group full">
+<label>主要竞品</label>
+<textarea name="主要竞品" placeholder="列出1-3个主要竞争对手，每个用一句话说明对方优势"></textarea>
+</div>
+<div class="form-group full">
+<label>你的核心差异</label>
+<textarea name="你的核心差异" placeholder="你跟竞品比最大的不同/优势是什么？"></textarea>
+</div>
+</div>
+</div>
+
+<div class="section" data-section="5">
+<div class="section-header"><span class="section-number">五</span><span class="section-title">营销需求</span><span class="section-desc">你要什么</span></div>
+<div class="form-grid">
+<div class="form-group">
+<label>营销目标 <span class="required">*</span></label>
+<div class="check-group">
+<label><span class="ck-box"></span><input type="checkbox" name="营销目标" value="品牌曝光"><span>品牌曝光</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="营销目标" value="获客引流"><span>获客引流</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="营销目标" value="提升转化"><span>提升转化</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="营销目标" value="促活复购"><span>促活复购</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="营销目标" value="打造IP人设"><span>打造IP人设</span></label>
+</div>
+</div>
+<div class="form-group">
+<label>推广渠道偏好</label>
+<div class="check-group">
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="小红书"><span>小红书</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="抖音"><span>抖音</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="视频号"><span>视频号</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="公众号"><span>公众号</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="朋友圈"><span>朋友圈</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="百度SEO"><span>百度SEO</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="大众点评"><span>大众点评</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="美团"><span>美团</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="推广渠道偏好" value="其他"><span>其他</span></label>
+</div>
+</div>
+<div class="form-group">
+<label>预算范围 <span class="required">*</span></label>
+<select name="预算范围" required>
+<option value="">请选择</option>
+<option>月预算：5000以下</option>
+<option>月预算：5000-2万</option>
+<option>月预算：2万-5万</option>
+<option>月预算：5万-10万</option>
+<option>月预算：10万以上</option>
+</select>
+</div>
+<div class="form-group">
+<label>期望周期 <span class="required">*</span></label>
+<select name="期望周期" required>
+<option value="">请选择</option>
+<option>短期引爆（1个月内）</option>
+<option>中期运营（1-3个月）</option>
+<option>长期陪跑（3个月以上）</option>
+</select>
+</div>
+</div>
+</div>
+
+<div class="section" data-section="6">
+<div class="section-header"><span class="section-number">六</span><span class="section-title">品牌调性</span><span class="section-desc">让AI懂你的风格</span></div>
+<div class="form-grid">
+<div class="form-group">
+<label>品牌调性</label>
+<div class="check-group">
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="高端专业"><span>高端专业</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="温暖亲切"><span>温暖亲切</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="潮流时尚"><span>潮流时尚</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="实在靠谱"><span>实在靠谱</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="幽默有趣"><span>幽默有趣</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="品牌调性" value="极简克制"><span>极简克制</span></label>
+</div>
+</div>
+<div class="form-group full">
+<label>有没有参考账号</label>
+<textarea name="有没有参考账号" placeholder="你觉得做得好的同行/博主，放链接或账号名"></textarea>
+</div>
+<div class="form-group">
+<label>现有素材情况</label>
+<div class="check-group">
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="有产品图"><span>有产品图</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="有视频素材"><span>有视频素材</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="有Logo和VI"><span>有Logo和VI</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="有客户案例"><span>有客户案例</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="之前做过内容"><span>之前做过内容</span></label>
+<label><span class="ck-box"></span><input type="checkbox" name="现有素材情况" value="什么都没有"><span>什么都没有</span></label>
+</div>
+</div>
+</div>
+</div>
+
+<div class="section" data-section="7">
+<div class="section-header"><span class="section-number">七</span><span class="section-title">补充</span><span class="section-desc">还有想说的？</span></div>
+<div class="form-grid">
+<div class="form-group full">
+<label>其他补充</label>
+<textarea name="其他补充" placeholder="有什么额外想说的，或者想让我们特别注意的地方"></textarea>
+</div>
+</div>
+</div>
+
+<div class="submit-card">
+<div class="info">已填写 <strong id="filledCount2">0</strong> / <strong>20</strong> 个字段</div>
+<button type="submit" class="btn-submit" id="btnSubmit">提交需求</button>
+</div>
+</form>
+
+<div class="footer-bar">
+<span class="status-badge idle" id="n8nStatus">n8n 未配置</span>
+<span class="footer-note">提交后我们会尽快与你联系</span>
+</div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Settings Modal -->
+<div class="modal-overlay" id="settingsModal">
+<div class="modal">
+<h2>设置 <button class="close-btn" id="closeModal">&times;</button></h2>
+<hr style="border:none;border-top:1px solid #f5f5f4;margin:16px 0">
+<div class="form-group"><label>n8n Webhook URL</label>
+<input type="text" id="cfgN8n" placeholder="https://your-n8n.example.com/webhook/..." autocomplete="off">
+<div class="form-help">留空则不发送 n8n</div></div>
+<div class="btn-group">
+<button class="btn-secondary" id="cancelSettings">取消</button>
+<button class="btn-primary" id="saveSettings">保存设置</button>
+</div>
+</div>
+</div>
+
+<script>
+(function(){
+  var form = document.getElementById('mainForm');
+  var btnSubmit = document.getElementById('btnSubmit');
+  var toast = document.getElementById('toast');
+  var settingsModal = document.getElementById('settingsModal');
+  var btnSettings = document.getElementById('btnSettings');
+  var closeModal = document.getElementById('closeModal');
+  var cancelSettings = document.getElementById('cancelSettings');
+  var saveSettings = document.getElementById('saveSettings');
+  var n8nStatus = document.getElementById('n8nStatus');
+  var filledCount = document.getElementById('filledCount');
+  var filledCount2 = document.getElementById('filledCount2');
+  var progressPercent = document.getElementById('progressPercent');
+  var cfgN8n = document.getElementById('cfgN8n');
+
+  var FIELD_NAMES = ["客户/品牌名称","联系人","联系方式","所属行业","核心产品/服务","项目所处阶段","所在城市","目标用户画像","用户核心痛点","用户决策路径","主要竞品","你的核心差异","营销目标","推广渠道偏好","预算范围","期望周期","品牌调性","有没有参考账号","现有素材情况","其他补充"];
+  var CHECK_FIELDS = ["用户决策路径","营销目标","推广渠道偏好","品牌调性","现有素材情况"];
+  var SECTION_FIELD_COUNTS = [3,4,3,2,4,3,1];
+
+  var config = {};
+
+  function showToast(msg, type){
+    toast.textContent = msg;
+    toast.className = 'toast ' + (type||'success') + ' show';
+    clearTimeout(toast._timer);
+    toast._timer = setTimeout(function(){ toast.classList.remove('show'); }, 3500);
+  }
+
+  function updateProgress(){
+    var segs = document.getElementById('progressSegments');
+    segs.innerHTML = '';
+    var sections = document.querySelectorAll('.section');
+    sections.forEach(function(sec){
+      var hasVal = false;
+      sec.querySelectorAll('input, select, textarea').forEach(function(el){
+        if(el.type!=='checkbox' && el.value && el.value.trim()) hasVal = true;
+      });
+      var seg = document.createElement('div');
+      seg.className = 'progress-seg' + (hasVal ? ' filled' : '');
+      segs.appendChild(seg);
+    });
+  }
+
+  function countFilled(){
+    var count = 0;
+    FIELD_NAMES.forEach(function(name){
+      if(CHECK_FIELDS.indexOf(name)>=0){
+        if(document.querySelectorAll('[name="'+name+'"]:checked').length>0) count++;
+      }else{
+        var el = document.querySelector('[name="'+name+'"]');
+        if(el && el.value && el.value.trim()) count++;
+      }
+    });
+    var pct = Math.round(count/20*100);
+    filledCount.textContent = count;
+    filledCount2.textContent = count;
+    progressPercent.textContent = pct+'%';
+
+    var segs = document.querySelectorAll('.progress-seg');
+    var sections = document.querySelectorAll('.section');
+    sections.forEach(function(sec, idx){
+      var hasVal = false;
+      sec.querySelectorAll('input, select, textarea').forEach(function(el){
+        if(el.type!=='checkbox' && el.value && el.value.trim()) hasVal = true;
+      });
+      if(hasVal && !segs[idx].classList.contains('filled')){
+        segs[idx].classList.add('filled','anim');
+      }else if(hasVal){
+        segs[idx].classList.add('filled');
+      }else{
+        segs[idx].classList.remove('filled','anim');
+      }
+    });
+  }
+
+  document.querySelectorAll('.section input, .section select, .section textarea').forEach(function(el){
+    el.addEventListener('input', function(){ updateProgress(); countFilled(); });
+    el.addEventListener('change', function(){ updateProgress(); countFilled(); });
+  });
+
+  function updateStatus(){
+    if(config.n8n_webhook){
+      n8nStatus.className = 'status-badge connected';
+      n8nStatus.textContent = 'n8n 已配置';
+    }else{
+      n8nStatus.className = 'status-badge idle';
+      n8nStatus.textContent = 'n8n 未配置';
+    }
+  }
+
+  function loadConfig(){
+    fetch('/api/config').then(function(r){return r.json();}).then(function(cfg){
+      config = cfg;
+      cfgN8n.value = cfg.n8n_webhook||'';
+      updateStatus();
+    }).catch(function(){});
+  }
+
+  function collectData(){
+    var data = {};
+    FIELD_NAMES.forEach(function(name){
+      if(CHECK_FIELDS.indexOf(name)>=0){
+        var vals = [];
+        document.querySelectorAll('[name="'+name+'"]:checked').forEach(function(cb){vals.push(cb.value);});
+        data[name] = vals.join('、');
+      }else{
+        var el = document.querySelector('[name="'+name+'"]');
+        data[name] = el ? el.value.trim() : '';
+      }
+    });
+    return data;
+  }
+
+  btnSettings.addEventListener('click', function(){
+    cfgN8n.value = config.n8n_webhook||'';
+    settingsModal.classList.add('show');
+  });
+
+  document.getElementById('btnRefresh').addEventListener('click', function(){loadConfig(); showToast('状态已刷新');});
+
+  closeModal.addEventListener('click', function(){settingsModal.classList.remove('show');});
+  cancelSettings.addEventListener('click', function(){settingsModal.classList.remove('show');});
+  settingsModal.addEventListener('click', function(e){if(e.target===settingsModal) settingsModal.classList.remove('show');});
+
+  saveSettings.addEventListener('click', function(){
+    var payload = {n8n_webhook: cfgN8n.value.trim()};
+    fetch('/api/config',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(payload)
+    }).then(function(){
+      Object.assign(config,payload);
+      updateStatus();
+      settingsModal.classList.remove('show');
+      showToast('设置已保存');
+    }).catch(function(e){showToast('保存失败: '+e.message,'error');});
+  });
+
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    btnSubmit.disabled = true;
+    btnSubmit.innerHTML = '<span class="loading-spinner"></span>提交中...';
+    var data = collectData();
+    var required = ['客户/品牌名称','联系人','联系方式','所属行业','核心产品/服务','项目所处阶段','营销目标','预算范围','期望周期'];
+    for(var i=0;i<required.length;i++){
+      if(!data[required[i]]){
+        showToast('请填写「'+required[i]+'」','error');
+        btnSubmit.disabled=false;
+        btnSubmit.innerHTML='提交需求';
+        return;
+      }
+    }
+    fetch('/api/submit',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify(data)
+    }).then(function(r){return r.json();}).then(function(result){
+      if(result.ok){
+        var parts = [];
+        if(result.results.n8n) parts.push(result.results.n8n.ok ? 'n8n 已发送' : 'n8n: '+(result.results.n8n.error||'失败'));
+        var hasError = parts.some(function(p){return p.indexOf('失败')>=0||p.indexOf('error')>=0;});
+        showToast(parts.length ? parts.join(' · ') : '提交成功', hasError ? 'error' : 'success');
+        if(!hasError){form.reset();updateProgress();countFilled();}
+      }else showToast(result.error||'提交失败','error');
+    }).catch(function(e){showToast('网络错误: '+e.message,'error');})
+    .finally(function(){btnSubmit.disabled=false;btnSubmit.innerHTML='提交需求';});
+  });
+
+  countFilled();
+  updateProgress();
+  loadConfig();
+})();
+</script>
+</body>
+</html>
