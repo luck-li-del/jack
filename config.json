@@ -1,0 +1,3 @@
+{
+  "n8n_webhook": "http://localhost:5680/webhook-test/new-client-request"
+}
