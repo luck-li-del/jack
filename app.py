@@ -8,6 +8,7 @@ BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 CONFIG_FILE = os.path.join(BASE_DIR, "config.json")
 logging.basicConfig(level=logging.INFO)
 log = logging.getLogger(__name__)
+N8N_WEBHOOK_ENV = os.environ.get("N8N_WEBHOOK")
 
 FIELD_NAMES = [
     "客户/品牌名称","联系人","联系方式","所属行业","核心产品/服务",
@@ -17,6 +18,8 @@ FIELD_NAMES = [
 ]
 
 def load_config():
+    if N8N_WEBHOOK_ENV:
+        return {"n8n_webhook": N8N_WEBHOOK_ENV, "from_env": True}
     if not os.path.exists(CONFIG_FILE):
         return {"n8n_webhook": ""}
     try:
@@ -26,6 +29,8 @@ def load_config():
         return {"n8n_webhook": ""}
 
 def save_config(cfg):
+    if N8N_WEBHOOK_ENV:
+        return
     with open(CONFIG_FILE, "w", encoding="utf-8") as f:
         json.dump(cfg, f, ensure_ascii=False, indent=2)
 
